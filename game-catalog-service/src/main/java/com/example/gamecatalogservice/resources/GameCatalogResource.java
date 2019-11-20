@@ -28,10 +28,10 @@ public class GameCatalogResource {
 	
 	@RequestMapping("/{userId}")
 	public List<CatalogItem> getCatalog(@PathVariable("userId") String userId){
-		UserRating ratings = restTemplate.getForObject("http://localhost:8083/ratingsdata/users/" +  userId, UserRating.class);
+		UserRating ratings = restTemplate.getForObject("http://ratings-data-service/ratingsdata/users/" +  userId, UserRating.class);
 		
 		return ratings.getUserRating().stream().map(rating -> {
-			Game game = restTemplate.getForObject("http://localhost:8082/games/" + rating.getGameId(), Game.class);
+			Game game = restTemplate.getForObject("http://game-info-service/games/" + rating.getGameId(), Game.class);
 			
 			/*
 			 * Game game = webClientBuilder.build()
